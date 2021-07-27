@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OpenCsvWriterExample {
+public class OpenCsvWriterReflectionExample {
 
     private static final char DEFAULT_SEPARATOR = ',';
     private static final char PIPE_SEPARATOR = '|';
@@ -20,13 +20,13 @@ public class OpenCsvWriterExample {
 
         // default all fields are enclosed in double quotes
         // default separator is a comma
-        try (CSVWriter writer = new CSVWriter(new FileWriter("d:\\test\\test.csv"))) {
+        try (CSVWriter writer = new CSVWriter(new FileWriter("c:\\test\\test.csv"))) {
             writer.writeAll(csvData);
         }
 
         // custom separator, semicolon ;
         try (ICSVWriter writer = new CSVWriterBuilder(
-                new FileWriter("d:\\test\\test-pipe.csv"))
+                new FileWriter("c:\\test\\test-pipe.csv"))
                 .withSeparator(PIPE_SEPARATOR)
                 .build()) {
             writer.writeAll(csvData);

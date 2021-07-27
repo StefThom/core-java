@@ -21,7 +21,7 @@ public class CsvWriterSimple {
     public static void main(String[] args) throws IOException {
 
         CsvWriterSimple writer = new CsvWriterSimple();
-        writer.writeToCsvFile(createCsvDataSpecial(), new File("c:\\test\\test.csv"));
+        writer.writeToCsvFile(createCsvDataSpecial(), new File("d:\\test\\test-simpel.csv"));
 
     }
 
