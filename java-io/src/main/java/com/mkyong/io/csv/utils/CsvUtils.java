@@ -22,36 +22,37 @@ public class CsvUtils {
         // Add a private constructor to hide the implicit public one."
     }
 
-    public static List<String[]> leesCsvBestand(String fileName, char separator) throws IOException, CsvException {
+    public static List<String[]> leesCsvBestand(String fileName, char separator, boolean header) throws IOException, CsvException {
 
         List<String[]> csvBestand;
 
         // custom separator
         CSVParser csvParser = new CSVParserBuilder().withSeparator(separator).build();
-        try (CSVReader reader = new CSVReaderBuilder(
-                new FileReader(fileName))
-                .withCSVParser(csvParser)   // custom CSV parser
-//                .withSkipLines(1)           // skip the first line, header info
-                .build()) {
-            csvBestand = reader.readAll();
+
+        // Als er een header aanwezig is dan eerste regel overslaan
+        if (header) {
+            try (CSVReader reader = new CSVReaderBuilder(
+                    new FileReader(fileName))
+                    .withCSVParser(csvParser)   // custom CSV parser
+                    .withSkipLines(1)           // skip the first line, header info
+                    .build()) {
+                csvBestand = reader.readAll();
+            }
+        } else {
+            try (CSVReader reader = new CSVReaderBuilder(
+                    new FileReader(fileName))
+                    .withCSVParser(csvParser)   // custom CSV parser
+                    .build()) {
+                csvBestand = reader.readAll();
+            }
         }
 
         return csvBestand;
     }
 
-    public static List<String[]> leesCsvEnVoegTrackAndTraceIdToe(String fileName, char separator) throws IOException, CsvException {
+    public static List<String[]> leesCsvEnVoegTrackAndTraceIdToe(String fileName, char separator, boolean header) throws IOException, CsvException {
 
-        List<String[]> csvBestand;
-
-        // custom separator
-        CSVParser csvParser = new CSVParserBuilder().withSeparator(separator).build();
-        try (CSVReader reader = new CSVReaderBuilder(
-                new FileReader(fileName))
-                .withCSVParser(csvParser)   // custom CSV parser
-//                .withSkipLines(1)           // skip the first line, header info
-                .build()) {
-            csvBestand = reader.readAll();
-        }
+        List<String[]> csvBestand = leesCsvBestand(fileName, separator, header);
 
         List<String[]> csvBestandMetTrackAndTraceId = new ArrayList<>();
 
